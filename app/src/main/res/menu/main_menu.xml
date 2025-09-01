@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_new_game"
+        android:icon="@drawable/ic_new_game"
+        android:title="@string/new_game"
+        app:showAsAction="ifRoom">
+        
+        <menu>
+            <item
+                android:id="@+id/difficulty_easy"
+                android:title="@string/easy" />
+            <item
+                android:id="@+id/difficulty_medium"
+                android:title="@string/medium" />
+            <item
+                android:id="@+id/difficulty_hard"
+                android:title="@string/hard" />
+            <item
+                android:id="@+id/difficulty_expert"
+                android:title="@string/expert" />
+            <item
+                android:id="@+id/difficulty_evil"
+                android:title="@string/evil" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <group android:scaleX="0.8" android:scaleY="0.8" 
+           android:translateX="10.8" android:translateY="10.8">
+        
+        <!-- Background circle -->
+        <path
+            android:fillColor="@color/white"
+            android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+        
+        <!-- Sudoku grid - main lines -->
+        <path
+            android:strokeColor="@color/purple_700"
+            android:strokeWidth="2"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M30,30 L78,30 M30,42 L78,42 M30,54 L78,54 M30,66 L78,66 M30,78 L78,78 M30,30 L30,78 M42,30 L42,78 M54,30 L54,78 M66,30 L66,78 M78,30 L78,78" />
+        
+        <!-- Thick grid lines for 3x3 boxes -->
+        <path
+            android:strokeColor="@color/purple_700"
+            android:strokeWidth="4"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M30,30 L78,30 M30,54 L78,54 M30,78 L78,78 M30,30 L30,78 M54,30 L54,78 M78,30 L78,78" />
+        
+        <!-- Simple filled squares to represent numbers -->
+        <path
+            android:fillColor="@color/purple_700"
+            android:pathData="M32,32 L40,32 L40,40 L32,40 Z" />
+        
+        <path
+            android:fillColor="@color/purple_700"
+            android:pathData="M56,32 L64,32 L64,40 L56,40 Z" />
+        
+        <path
+            android:fillColor="@color/purple_700"
+            android:pathData="M32,56 L40,56 L40,64 L32,64 Z" />
+        
+        <path
+            android:fillColor="@color/purple_700"
+            android:pathData="M68,56 L76,56 L76,64 L68,64 Z" />
+    </group>
+</vector>

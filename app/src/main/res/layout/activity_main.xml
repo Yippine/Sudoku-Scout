@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".MainActivity">
+
+    <!-- Top Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/main_menu"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
+
+    <!-- Game Info Bar -->
+    <LinearLayout
+        android:id="@+id/gameInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/difficultyChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/medium"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/noteModeChip"
+            style="@style/Widget.Material3.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="@string/notes"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Sudoku Grid Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sudokuContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/toolbarLayout"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameInfoLayout">
+
+        <!-- Custom Sudoku View will be added programmatically -->
+        <FrameLayout
+            android:id="@+id/sudokuGridFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sudoku_cell_background"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Tool Buttons -->
+    <LinearLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/numberPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnUndo"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/undo"
+            android:drawableTop="@drawable/ic_undo"
+            android:drawableTint="@color/button_primary" />
+
+        <Button
+            android:id="@+id/btnErase"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/erase"
+            android:drawableTop="@drawable/ic_erase"
+            android:drawableTint="@color/button_primary" />
+
+        <Button
+            android:id="@+id/btnHint"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/hint"
+            android:drawableTop="@drawable/ic_hint"
+            android:drawableTint="@color/button_primary" />
+
+        <Button
+            android:id="@+id/btnAutoNotes"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/auto_notes"
+            android:drawableTop="@drawable/ic_auto_notes"
+            android:drawableTint="@color/button_primary" />
+
+        <Button
+            android:id="@+id/btnScan"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/scan"
+            android:drawableTop="@drawable/ic_scan"
+            android:drawableTint="@color/button_primary" />
+
+    </LinearLayout>
+
+    <!-- Save Point Buttons -->
+    <LinearLayout
+        android:id="@+id/savePointLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/toolbarLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnSavePoint"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/save_point"
+            android:drawableTop="@drawable/ic_save"
+            android:drawableTint="@color/button_secondary" />
+
+        <Button
+            android:id="@+id/btnRestorePoint"
+            style="@style/ToolbarButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/restore_point"
+            android:drawableTop="@drawable/ic_restore"
+            android:drawableTint="@color/button_secondary"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+    <!-- Number Panel -->
+    <LinearLayout
+        android:id="@+id/numberPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnNumber1"
+            style="@style/NumberButton"
+            android:text="1"
+            android:tag="1" />
+
+        <Button
+            android:id="@+id/btnNumber2"
+            style="@style/NumberButton"
+            android:text="2"
+            android:tag="2" />
+
+        <Button
+            android:id="@+id/btnNumber3"
+            style="@style/NumberButton"
+            android:text="3"
+            android:tag="3" />
+
+        <Button
+            android:id="@+id/btnNumber4"
+            style="@style/NumberButton"
+            android:text="4"
+            android:tag="4" />
+
+        <Button
+            android:id="@+id/btnNumber5"
+            style="@style/NumberButton"
+            android:text="5"
+            android:tag="5" />
+
+        <Button
+            android:id="@+id/btnNumber6"
+            style="@style/NumberButton"
+            android:text="6"
+            android:tag="6" />
+
+        <Button
+            android:id="@+id/btnNumber7"
+            style="@style/NumberButton"
+            android:text="7"
+            android:tag="7" />
+
+        <Button
+            android:id="@+id/btnNumber8"
+            style="@style/NumberButton"
+            android:text="8"
+            android:tag="8" />
+
+        <Button
+            android:id="@+id/btnNumber9"
+            style="@style/NumberButton"
+            android:text="9"
+            android:tag="9" />
+
+    </LinearLayout>
+
+    <!-- Progress indicator for scanning -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/sudokuContainer"
+        app:layout_constraintEnd_toEndOf="@id/sudokuContainer"
+        app:layout_constraintStart_toStartOf="@id/sudokuContainer"
+        app:layout_constraintTop_toTopOf="@id/sudokuContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

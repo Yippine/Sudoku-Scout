@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Background -->
+    <path
+        android:fillColor="@color/purple_500"
+        android:pathData="M0,0 L48,0 L48,48 L0,48 Z" />
+    
+    <!-- Sudoku grid -->
+    <group android:scaleX="0.7" android:scaleY="0.7" 
+           android:translateX="7.2" android:translateY="7.2">
+        
+        <!-- Main grid lines -->
+        <path
+            android:strokeColor="@color/white"
+            android:strokeWidth="1"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M8,8 L40,8 M8,16 L40,16 M8,24 L40,24 M8,32 L40,32 M8,40 L40,40 M8,8 L8,40 M16,8 L16,40 M24,8 L24,40 M32,8 L32,40 M40,8 L40,40" />
+        
+        <!-- Thick grid lines for 3x3 boxes -->
+        <path
+            android:strokeColor="@color/white"
+            android:strokeWidth="2"
+            android:fillColor="@android:color/transparent"
+            android:pathData="M8,8 L40,8 M8,24 L40,24 M8,40 L40,40 M8,8 L8,40 M24,8 L24,40 M40,8 L40,40" />
+    </group>
+</vector>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">數獨偵探</string>
+    <string name="settings">設定</string>
+    <string name="new_game">新遊戲</string>
+    <string name="easy">簡單</string>
+    <string name="medium">中等</string>
+    <string name="hard">困難</string>
+    <string name="expert">專家</string>
+    <string name="evil">惡魔</string>
+    <string name="hint">提示</string>
+    <string name="notes">筆記</string>
+    <string name="auto_notes">自動筆記</string>
+    <string name="undo">返回</string>
+    <string name="erase">擦除</string>
+    <string name="save_point">記錄點</string>
+    <string name="restore_point">還原記錄點</string>
+    <string name="scan">掃描</string>
+    <string name="validate_immediately">即時校驗</string>
+    <string name="validate_at_end">完成後校驗</string>
+    <string name="congratulations">恭喜！</string>
+    <string name="sudoku_solved">您已成功完成數獨！</string>
+    <string name="error_title">錯誤</string>
+    <string name="invalid_number">此處無法填入該數字</string>
+    <string name="no_more_hints">沒有更多提示了</string>
+    <string name="game_completed">遊戲完成</string>
+    <string name="remaining_count">剩餘: %d</string>
+    <string name="scan_found">找到組合</string>
+    <string name="no_combinations_found">未找到任何組合</string>
+    
+    <!-- Language settings -->
+    <string name="language">語言</string>
+    <string name="language_english">English</string>
+    <string name="language_traditional_chinese">繁體中文</string>
+    <string name="language_simplified_chinese">简体中文</string>
+    <string name="restart_required">語言變更需要重新啟動應用程式</string>
+    <string name="restart_now">立即重啟</string>
+    <string name="restart_later">稍後重啟</string>
+    
+    <!-- Settings page strings -->
+    <string name="game_settings">遊戲設定</string>
+    <string name="error_detection">錯誤檢測</string>
+    <string name="check_errors_immediately">填入數字時立即檢查是否有錯誤</string>
+    <string name="check_errors_at_end">完成後一次性檢查所有錯誤</string>
+    <string name="auto_fill_notes_on_new_game">新遊戲時自動填入筆記</string>
+    <string name="auto_fill_notes_description">開始新遊戲時自動為所有空格填入可能的數字筆記</string>
+    <string name="highlight_same_numbers">高亮相同數字</string>
+    <string name="highlight_same_numbers_description">選中已填數字時高亮顯示棋盤上所有相同的數字</string>
+    <string name="difficulty_settings">難度設定</string>
+    <string name="default_difficulty">預設難度</string>
+    <string name="about">關於</string>
+    <string name="version">版本 1.0.0</string>
+    <string name="app_description">一個功能豐富的數獨遊戲，包含筆記、提示、記錄點、掃描等進階功能。</string>
+    
+    <!-- Toast messages -->
+    <string name="cannot_undo">無法返回</string>
+    <string name="no_save_point">沒有保存點</string>
+</resources>
