@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".MainActivity">
+
+    <!-- Top Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/main_menu"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white" />
+
+    <!-- Game Info & Mode Toggle Bar -->
+    <LinearLayout
+        android:id="@+id/gameInfoLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/difficultyChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/medium"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/noteModeChip"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="@string/notes"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Sudoku Grid Container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sudokuContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/primaryToolsLayout"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameInfoLayout">
+
+        <!-- Custom Sudoku View will be added programmatically -->
+        <FrameLayout
+            android:id="@+id/sudokuGridFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sudoku_cell_background"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Primary Tools (Most Frequently Used) -->
+    <LinearLayout
+        android:id="@+id/primaryToolsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@id/numberPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Undo (Most frequent action) -->
+        <Button
+            android:id="@+id/btnUndo"
+            style="@style/PrimaryToolButton"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:text="@string/undo"
+            android:drawableTop="@drawable/ic_undo"
+            android:drawableTint="@color/primary" />
+
+        <!-- Erase (High frequency) -->
+        <Button
+            android:id="@+id/btnErase"
+            style="@style/PrimaryToolButton"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:text="@string/erase"
+            android:drawableTop="@drawable/ic_erase"
+            android:drawableTint="@color/primary" />
+
+        <!-- Hint (Medium frequency) -->
+        <Button
+            android:id="@+id/btnHint"
+            style="@style/PrimaryToolButton"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:text="@string/hint"
+            android:drawableTop="@drawable/ic_hint"
+            android:drawableTint="@color/primary" />
+
+        <!-- More Tools (Overflow menu) -->
+        <Button
+            android:id="@+id/btnMoreTools"
+            style="@style/PrimaryToolButton"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="⋯"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- Number Panel -->
+    <LinearLayout
+        android:id="@+id/numberPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber1"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="1" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber2"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="2" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber3"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="3" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber4"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="4" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber5"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="5" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber6"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="6" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber7"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="7" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber8"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="8" />
+
+        <com.sudokuscout.NumberButtonView
+            android:id="@+id/btnNumber9"
+            android:layout_width="0dp"
+            android:layout_height="82dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:tag="9" />
+
+    </LinearLayout>
+
+    <!-- Progress indicator for scanning -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/sudokuContainer"
+        app:layout_constraintEnd_toEndOf="@id/sudokuContainer"
+        app:layout_constraintStart_toStartOf="@id/sudokuContainer"
+        app:layout_constraintTop_toTopOf="@id/sudokuContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

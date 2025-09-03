@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/action_auto_notes"
+        android:icon="@drawable/ic_auto_notes"
+        android:title="@string/auto_notes" />
+        
+    <item
+        android:id="@+id/action_scan"
+        android:icon="@drawable/ic_scan"
+        android:title="@string/scan" />
+        
+    <item
+        android:id="@+id/action_save_point"
+        android:icon="@drawable/ic_save"
+        android:title="@string/save_point" />
+        
+    <item
+        android:id="@+id/action_restore_point"
+        android:icon="@drawable/ic_restore"
+        android:title="@string/restore_point" />
+        
+</menu>

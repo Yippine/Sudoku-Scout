@@ -55,4 +55,20 @@
     <!-- Toast messages -->
     <string name="cannot_undo">無法返回</string>
     <string name="no_save_point">沒有保存點</string>
+    <string name="change_difficulty">變更難度</string>
+    <string name="lose_progress_warning">變更難度將失去目前的進度。確定要繼續嗎？</string>
+    <string name="continue_anyway">仍要繼續</string>
+    <string name="cancel">取消</string>
+    <string name="note_toggled">筆記 %d 已切換</string>
+    <string name="invalid_note">無法新增筆記 %d - 該數字已存在於該行、列或九宮格中</string>
+    <string name="save_point_created">已建立記錄點</string>
+    <string name="save_point_restored">遊戲已還原至記錄點</string>
+    <string name="validation_errors_found">部分填入的數字有錯誤 - 已標示為紅色</string>
+    
+    <!-- Enhanced error messages -->
+    <string name="duplicate_number_error">數字 %d 已存在於此行、列或九宮格中</string>
+    <string name="duplicate_number_in_notes">無法新增筆記 %d - 數字與現有數字衝突</string>
+    <string name="incorrect_answer_hint">此數字不符合正確解答。請嘗試其他數字或使用提示功能。</string>
+    <string name="invalid_cell">無法修改此格子</string>
+    <string name="validation_mode_changed_with_errors">已切換至即時校驗模式。發現 %d 個錯誤項目，已標示為紅色。</string>
 </resources>

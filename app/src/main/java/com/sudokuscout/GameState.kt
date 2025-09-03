@@ -28,6 +28,13 @@ data class CombinationGroup(
     val numbers: Set<Int>
 )
 
+enum class InputResult {
+    SUCCESS,
+    DUPLICATE_NUMBER,  // 重複數字 - 任何模式都不允許
+    WRONG_ANSWER,      // 馬上校驗模式下的錯誤答案
+    INVALID_CELL       // 無效的格子 (已填入或給定)
+}
+
 class GameState(private val difficulty: Difficulty) {
     private var _grid: Array<Array<SudokuCell>> = SudokuLogic.createEmptyGrid()
     private val _history: MutableList<GameSnapshot> = mutableListOf()
@@ -59,8 +66,35 @@ class GameState(private val difficulty: Difficulty) {
     }
     
     fun setValue(row: Int, col: Int, value: Int): Boolean {
-        if (row !in 0 until SudokuLogic.SIZE || col !in 0 until SudokuLogic.SIZE) return false
-        if (_grid[row][col].isGiven) return false
+        return setValueWithResult(row, col, value) == InputResult.SUCCESS
+    }
+    
+    fun setValueWithResult(row: Int, col: Int, value: Int): InputResult {
+        if (row !in 0 until SudokuLogic.SIZE || col !in 0 until SudokuLogic.SIZE) {
+            return InputResult.INVALID_CELL
+        }
+        if (_grid[row][col].isGiven) {
+            return InputResult.INVALID_CELL
+        }
+        
+        if (value != 0) {
+            // 第一層：基本規則檢查 - 任何模式都不允許重複數字
+            val hasBasicViolation = !SudokuLogic.isValidMove(_grid, row, col, value)
+            if (hasBasicViolation) {
+                return InputResult.DUPLICATE_NUMBER
+            }
+            
+            if (_validateImmediately) {
+                // 第二層：馬上校驗 - 檢查是否為唯一正解
+                val correctValue = SudokuLogic.getCorrectValue(_grid, row, col)
+                val isCorrectAnswer = (value == correctValue)
+                
+                // 如果不是正確答案，阻止輸入
+                if (!isCorrectAnswer) {
+                    return InputResult.WRONG_ANSWER
+                }
+            }
+        }
         
         saveToHistory()
         
@@ -68,12 +102,14 @@ class GameState(private val difficulty: Difficulty) {
         _grid[row][col].value = value
         _grid[row][col].clearNotes()
         
-        if (_validateImmediately && value != 0) {
-            val isValid = SudokuLogic.isValidMove(_grid, row, col, value)
-            _grid[row][col].isError = !isValid
-            
-            if (!isValid) {
-                return false
+        // 設置錯誤狀態
+        if (value != 0) {
+            if (_validateImmediately) {
+                // 馬上校驗模式下，只有通過驗證的數字才會到這裡，所以不是錯誤
+                _grid[row][col].isError = false
+            } else {
+                // 完成後校驗模式：允許輸入但不在此時檢查錯誤
+                _grid[row][col].isError = false
             }
         } else {
             _grid[row][col].isError = false
@@ -84,7 +120,7 @@ class GameState(private val difficulty: Difficulty) {
             updateNotesAfterNumberPlacement(row, col, value)
         }
         
-        return true
+        return InputResult.SUCCESS
     }
     
     fun toggleNote(row: Int, col: Int, number: Int): Boolean {
@@ -92,9 +128,17 @@ class GameState(private val difficulty: Difficulty) {
         if (_grid[row][col].isGiven || _grid[row][col].value != 0) return false
         if (number !in 1..9) return false
         
-        saveToHistory()
-        
         val currentNote = _grid[row][col].hasNote(number)
+        
+        // If trying to add a note (not remove), check if it's valid
+        if (!currentNote) {
+            // Check if this number already exists in row, column, or box
+            if (!SudokuLogic.isValidMove(_grid, row, col, number)) {
+                return false // Invalid note - number already exists in constraints
+            }
+        }
+        
+        saveToHistory()
         _grid[row][col].setNote(number, !currentNote)
         
         return true
@@ -159,6 +203,18 @@ class GameState(private val difficulty: Difficulty) {
             val correctValue = SudokuLogic.getCorrectValue(_grid, row, col)
             setValue(row, col, correctValue)
             return hintCell
+        }
+        return null
+    }
+    
+    fun getHintForCell(row: Int, col: Int): Pair<Int, Int>? {
+        // Check if the selected cell can receive a hint
+        if (row !in 0 until SudokuLogic.SIZE || col !in 0 until SudokuLogic.SIZE) return null
+        if (_grid[row][col].value != 0 || _grid[row][col].isGiven) return null
+        
+        val correctValue = SudokuLogic.getCorrectValue(_grid, row, col)
+        if (setValue(row, col, correctValue)) {
+            return Pair(row, col)
         }
         return null
     }
@@ -264,13 +320,30 @@ class GameState(private val difficulty: Difficulty) {
         
         for (row in 0 until SudokuLogic.SIZE) {
             for (col in 0 until SudokuLogic.SIZE) {
-                val value = _grid[row][col].value
-                if (value != 0) {
-                    val isValid = SudokuLogic.isValidMove(_grid, row, col, value)
-                    _grid[row][col].isError = !isValid
-                    if (!isValid) {
+                val cell = _grid[row][col]
+                if (cell.value != 0 && !cell.isGiven) {
+                    var isError = false
+                    
+                    // 基本規則檢查：重複數字（任何模式都要檢查）
+                    if (!SudokuLogic.isValidMove(_grid, row, col, cell.value)) {
+                        isError = true
+                    }
+                    
+                    // 完成後校驗：檢查是否為正確解答
+                    if (!_validateImmediately) {
+                        val correctValue = SudokuLogic.getCorrectValue(_grid, row, col)
+                        if (cell.value != correctValue) {
+                            isError = true
+                        }
+                    }
+                    
+                    cell.isError = isError
+                    if (isError) {
                         errors.add(row to col)
                     }
+                } else {
+                    // 清除給定數字或空格的錯誤標記
+                    cell.isError = false
                 }
             }
         }
@@ -285,6 +358,15 @@ class GameState(private val difficulty: Difficulty) {
                 if (_grid[row][col].value == 0) {
                     return false
                 }
+            }
+        }
+        
+        // 在完成後校驗模式下，需要檢查是否有錯誤
+        if (!_validateImmediately) {
+            // 執行完整檢查並標記錯誤
+            val errors = validateAll()
+            if (errors.isNotEmpty()) {
+                return false // 有錯誤則未完成
             }
         }
         

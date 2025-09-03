@@ -6,8 +6,13 @@ import android.content.Context
 class SudokuScoutApplication : Application() {
     
     override fun attachBaseContext(base: Context) {
-        // Use default context to avoid SharedPreferences access during Application creation
-        super.attachBaseContext(base)
+        try {
+            // Apply locale setting during application startup
+            super.attachBaseContext(LocaleHelper.attachBaseContext(base))
+        } catch (e: Exception) {
+            // Fall back to default if there's any issue with SharedPreferences
+            super.attachBaseContext(base)
+        }
     }
     
     override fun onCreate() {

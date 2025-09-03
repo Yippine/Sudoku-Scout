@@ -27,6 +27,24 @@
     <string name="remaining_count">Remaining: %d</string>
     <string name="scan_found">Combinations Found</string>
     <string name="no_combinations_found">No combinations found</string>
+    <string name="change_difficulty">Change Difficulty</string>
+    <string name="lose_progress_warning">Changing difficulty will lose your current progress. Continue anyway?</string>
+    <string name="continue_anyway">Continue Anyway</string>
+    <string name="cancel">Cancel</string>
+    <string name="note_toggled">Note %d toggled</string>
+    <string name="invalid_note">Cannot add note %d - number already exists in row, column or box</string>
+    <string name="save_point_created">Save point created</string>
+    <string name="save_point_restored">Game restored to save point</string>
+    <string name="validation_errors_found">Some entries have errors - marked in red</string>
+    <string name="cannot_undo">Cannot undo</string>
+    <string name="no_save_point">No save point available</string>
+    
+    <!-- Enhanced error messages -->
+    <string name="duplicate_number_error">Number %d already exists in this row, column, or box</string>
+    <string name="duplicate_number_in_notes">Cannot add note %d - number conflicts with existing numbers</string>
+    <string name="incorrect_answer_hint">This number doesn\'t match the correct solution. Try a different number or use a hint.</string>
+    <string name="invalid_cell">Cannot modify this cell</string>
+    <string name="validation_mode_changed_with_errors">Switched to immediate validation. Found %d incorrect entries marked in red.</string>
     
     <!-- Language settings -->
     <string name="language">Language</string>
@@ -40,8 +58,10 @@
     <!-- Settings page strings -->
     <string name="game_settings">Game Settings</string>
     <string name="error_detection">Error Detection</string>
-    <string name="check_errors_immediately">Check for errors immediately when entering numbers</string>
-    <string name="check_errors_at_end">Check all errors at once when completed</string>
+    <string name="check_errors_immediately">Highlight mistakes immediately (recommended)</string>
+    <string name="check_errors_at_end">Show mistakes only after completion</string>
+    <string name="validate_immediately_description">Red highlighting helps you learn faster. Basic rule violations (duplicate numbers) are always prevented.</string>
+    <string name="validate_at_end_description">For experienced players who prefer discovering mistakes themselves. Basic rule violations are still prevented.</string>
     <string name="auto_fill_notes_on_new_game">Auto-fill notes on new game</string>
     <string name="auto_fill_notes_description">Automatically fill possible number notes for all empty cells when starting a new game</string>
     <string name="highlight_same_numbers">Highlight same numbers</string>
@@ -52,7 +72,4 @@
     <string name="version">Version 1.0.0</string>
     <string name="app_description">A feature-rich Sudoku game with advanced functions including notes, hints, save points, scanning and more.</string>
     
-    <!-- Toast messages -->
-    <string name="cannot_undo">Cannot undo</string>
-    <string name="no_save_point">No save point available</string>
 </resources>

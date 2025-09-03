@@ -77,6 +77,8 @@
                             android:id="@+id/radioValidateImmediately"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/validate_immediately"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
@@ -85,15 +87,19 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="12dp"
                             android:text="@string/check_errors_immediately"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2" />
 
                         <RadioButton
                             android:id="@+id/radioValidateAtEnd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/validate_at_end"
                             android:textColor="@color/text_primary"
                             android:textSize="14sp" />
@@ -102,9 +108,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="32dp"
+                            android:layout_marginEnd="16dp"
                             android:text="@string/check_errors_at_end"
                             android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:lineSpacingMultiplier="1.2" />
 
                     </RadioGroup>
 
@@ -120,6 +128,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
+                        android:minHeight="48dp"
+                        android:paddingEnd="16dp"
                         android:text="@string/auto_fill_notes_on_new_game"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp" />
@@ -128,10 +138,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:text="@string/auto_fill_notes_description"
                         android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.2" />
 
                     <!-- Highlight Settings -->
                     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -140,6 +152,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:checked="true"
+                        android:minHeight="48dp"
+                        android:paddingEnd="16dp"
                         android:text="@string/highlight_same_numbers"
                         android:textColor="@color/text_primary"
                         android:textSize="14sp" />
@@ -148,9 +162,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:text="@string/highlight_same_numbers_description"
                         android:textColor="@color/text_secondary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="1.2" />
 
                 </LinearLayout>
 
@@ -188,22 +204,31 @@
                             android:id="@+id/radioEnglish"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/language_english"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioTraditionalChinese"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/language_traditional_chinese"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioSimplifiedChinese"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/language_simplified_chinese"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                     </RadioGroup>
 
@@ -252,37 +277,52 @@
                             android:id="@+id/radioEasy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/easy"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:checked="true"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/medium"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioHard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/hard"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioExpert"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/expert"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                         <RadioButton
                             android:id="@+id/radioEvil"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/evil"
-                            android:textColor="@color/text_primary" />
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
 
                     </RadioGroup>
 
