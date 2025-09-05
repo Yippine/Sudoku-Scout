@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 import android.widget.PopupMenu
 import android.view.View
+import android.view.KeyEvent
 
 class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
 
@@ -302,6 +303,40 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
 
     override fun onCellClicked(row: Int, col: Int) {
         gameViewModel.selectCell(row, col)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        // Handle number key input when a cell is selected
+        val gameState = gameViewModel.gameState.value
+        if (gameState?.currentSelection != null) {
+            val number = when (keyCode) {
+                KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_NUMPAD_1 -> 1
+                KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_NUMPAD_2 -> 2
+                KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_NUMPAD_3 -> 3
+                KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_NUMPAD_4 -> 4
+                KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_NUMPAD_5 -> 5
+                KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_NUMPAD_6 -> 6
+                KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_NUMPAD_7 -> 7
+                KeyEvent.KEYCODE_8, KeyEvent.KEYCODE_NUMPAD_8 -> 8
+                KeyEvent.KEYCODE_9, KeyEvent.KEYCODE_NUMPAD_9 -> 9
+                KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_NUMPAD_0 -> 0 // 0 for erase
+                KeyEvent.KEYCODE_DEL, KeyEvent.KEYCODE_FORWARD_DEL -> 0 // Delete key for erase
+                else -> null
+            }
+            
+            if (number != null) {
+                if (number == 0) {
+                    // Erase the selected cell
+                    gameViewModel.eraseSelectedCell()
+                } else {
+                    // Input the number (1-9)
+                    gameViewModel.inputNumber(number)
+                }
+                return true
+            }
+        }
+        
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
