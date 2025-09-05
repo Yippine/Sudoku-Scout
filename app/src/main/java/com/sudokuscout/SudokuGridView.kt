@@ -86,7 +86,7 @@ class SudokuGridView @JvmOverloads constructor(
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         
-        val padding = dpToPx(16f)
+        val padding = dpToPx(8f)  // 減少內部padding從16dp到8dp讓格子更大
         val gridSize = min(w, h) - padding * 2
         cellSize = gridSize / 9f
         
@@ -353,7 +353,7 @@ class SudokuGridView @JvmOverloads constructor(
                 
                 // 優化：使用預先創建的 Paint 物件，遵循高亮設定
                 val textPaint = if (number == highlightNumber && highlightSameNumbers) {
-                    val radius = noteSize * 0.35f
+                    val radius = noteSize * 0.45f  // 增大高亮範圍從 0.35f 到 0.45f
                     canvas.drawCircle(noteX, noteY, radius, notesBackgroundPaint)
                     notesHighlightedPaint
                 } else {

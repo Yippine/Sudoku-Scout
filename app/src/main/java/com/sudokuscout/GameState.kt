@@ -273,6 +273,22 @@ class GameState(private val difficulty: Difficulty) {
     fun scanUniqueSolutions(): List<CombinationGroup> {
         val uniqueSolutions = mutableListOf<CombinationGroup>()
         
+        // First, scan for cells with only one note (single candidate)
+        for (row in 0 until SudokuLogic.SIZE) {
+            for (col in 0 until SudokuLogic.SIZE) {
+                if (_grid[row][col].value == 0 && _grid[row][col].getNotesCount() == 1) {
+                    // Find the single note
+                    val singleNote = (1..9).find { _grid[row][col].hasNote(it) }
+                    if (singleNote != null) {
+                        uniqueSolutions.add(CombinationGroup(
+                            cells = listOf(row to col),
+                            numbers = setOf(singleNote)
+                        ))
+                    }
+                }
+            }
+        }
+        
         // Scan rows for unique solutions
         for (row in 0 until SudokuLogic.SIZE) {
             uniqueSolutions.addAll(scanGroupForUniqueSolutions(getRowCells(row)))
