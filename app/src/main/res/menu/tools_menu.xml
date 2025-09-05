@@ -7,9 +7,14 @@
         android:title="@string/auto_notes" />
         
     <item
-        android:id="@+id/action_scan"
+        android:id="@+id/action_scan_unique_solutions"
         android:icon="@drawable/ic_scan"
-        android:title="@string/scan" />
+        android:title="@string/scan_unique_solutions" />
+        
+    <item
+        android:id="@+id/action_scan_combinations"
+        android:icon="@drawable/ic_scan"
+        android:title="@string/scan_combinations" />
         
     <item
         android:id="@+id/action_save_point"

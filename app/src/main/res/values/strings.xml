@@ -16,6 +16,8 @@
     <string name="save_point">Save Point</string>
     <string name="restore_point">Restore Point</string>
     <string name="scan">Scan</string>
+    <string name="scan_unique_solutions">找出正解</string>
+    <string name="scan_combinations">找出組合</string>
     <string name="validate_immediately">Validate Immediately</string>
     <string name="validate_at_end">Validate at End</string>
     <string name="congratulations">Congratulations!</string>
@@ -27,6 +29,8 @@
     <string name="remaining_count">Remaining: %d</string>
     <string name="scan_found">Combinations Found</string>
     <string name="no_combinations_found">No combinations found</string>
+    <string name="unique_solutions_found">Unique solutions found</string>
+    <string name="no_unique_solutions_found">No unique solutions found</string>
     <string name="change_difficulty">Change Difficulty</string>
     <string name="lose_progress_warning">Changing difficulty will lose your current progress. Continue anyway?</string>
     <string name="continue_anyway">Continue Anyway</string>

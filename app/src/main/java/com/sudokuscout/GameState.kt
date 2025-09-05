@@ -244,6 +244,10 @@ class GameState(private val difficulty: Difficulty) {
     fun hasSavePoint(): Boolean = _savePoint != null
     
     fun scan(): List<CombinationGroup> {
+        return scanCombinations()
+    }
+    
+    fun scanCombinations(): List<CombinationGroup> {
         val combinations = mutableListOf<CombinationGroup>()
         
         // Scan rows
@@ -266,24 +270,47 @@ class GameState(private val difficulty: Difficulty) {
         return combinations.distinctBy { it.cells.toSet() }
     }
     
+    fun scanUniqueSolutions(): List<CombinationGroup> {
+        val uniqueSolutions = mutableListOf<CombinationGroup>()
+        
+        // Scan rows for unique solutions
+        for (row in 0 until SudokuLogic.SIZE) {
+            uniqueSolutions.addAll(scanGroupForUniqueSolutions(getRowCells(row)))
+        }
+        
+        // Scan columns for unique solutions
+        for (col in 0 until SudokuLogic.SIZE) {
+            uniqueSolutions.addAll(scanGroupForUniqueSolutions(getColCells(col)))
+        }
+        
+        // Scan 3x3 boxes for unique solutions
+        for (boxRow in 0 until SudokuLogic.SIZE step SudokuLogic.BOX_SIZE) {
+            for (boxCol in 0 until SudokuLogic.SIZE step SudokuLogic.BOX_SIZE) {
+                uniqueSolutions.addAll(scanGroupForUniqueSolutions(getBoxCells(boxRow, boxCol)))
+            }
+        }
+        
+        return uniqueSolutions.distinctBy { it.cells.toSet() }
+    }
+    
     private fun scanGroup(cells: List<Pair<Int, Int>>): List<CombinationGroup> {
         val emptyCells = cells.filter { (row, col) -> _grid[row][col].value == 0 }
         if (emptyCells.size < 2) return emptyList()
         
         val combinations = mutableListOf<CombinationGroup>()
         
-        // Group cells by their possible numbers
+        // Group cells by their possible numbers (only use user's manual notes)
         val cellsByNotes = mutableMapOf<Set<Int>, MutableList<Pair<Int, Int>>>()
         
         for ((row, col) in emptyCells) {
-            val possibleNumbers = if (_grid[row][col].getNotesCount() > 0) {
-                (1..9).filter { _grid[row][col].hasNote(it) }.toSet()
-            } else {
-                SudokuLogic.getPossibleNumbers(_grid, row, col).toSet()
-            }
-            
-            if (possibleNumbers.isNotEmpty()) {
-                cellsByNotes.getOrPut(possibleNumbers) { mutableListOf() }.add(row to col)
+            // Only consider cells that have user-filled notes
+            // If no notes exist, skip this cell (user hasn't analyzed it yet)
+            if (_grid[row][col].getNotesCount() > 0) {
+                val possibleNumbers = (1..9).filter { _grid[row][col].hasNote(it) }.toSet()
+                
+                if (possibleNumbers.isNotEmpty()) {
+                    cellsByNotes.getOrPut(possibleNumbers) { mutableListOf() }.add(row to col)
+                }
             }
         }
         
@@ -295,6 +322,39 @@ class GameState(private val difficulty: Difficulty) {
         }
         
         return combinations
+    }
+    
+    private fun scanGroupForUniqueSolutions(cells: List<Pair<Int, Int>>): List<CombinationGroup> {
+        val emptyCells = cells.filter { (row, col) -> _grid[row][col].value == 0 }
+        if (emptyCells.isEmpty()) return emptyList()
+        
+        val uniqueSolutions = mutableListOf<CombinationGroup>()
+        
+        // Check each number 1-9 to see if it has only one possible position in this group
+        for (number in 1..9) {
+            // Skip if this number is already present in the group
+            if (cells.any { (row, col) -> _grid[row][col].value == number }) {
+                continue
+            }
+            
+            val possibleCells = emptyCells.filter { (row, col) ->
+                // Only consider cells that have user-filled notes
+                // If no notes exist, skip this cell (user hasn't analyzed it yet)
+                if (_grid[row][col].getNotesCount() == 0) {
+                    false
+                } else {
+                    // Use only user's manual notes
+                    _grid[row][col].hasNote(number)
+                }
+            }
+            
+            // If only one cell can contain this number, it's a unique solution
+            if (possibleCells.size == 1) {
+                uniqueSolutions.add(CombinationGroup(possibleCells, setOf(number)))
+            }
+        }
+        
+        return uniqueSolutions
     }
     
     private fun getRowCells(row: Int): List<Pair<Int, Int>> {

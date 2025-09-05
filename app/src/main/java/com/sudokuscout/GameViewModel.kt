@@ -210,7 +210,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
     
     fun scanForCombinations(): List<CombinationGroup> {
-        return currentGameState?.scan() ?: emptyList()
+        return currentGameState?.scanCombinations() ?: emptyList()
+    }
+    
+    fun scanForUniqueSolutions(): List<CombinationGroup> {
+        return currentGameState?.scanUniqueSolutions() ?: emptyList()
     }
     
     fun validateGame(): List<Pair<Int, Int>> {

@@ -232,8 +232,12 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
                     gameViewModel.toggleAutoNotes()
                     true
                 }
-                R.id.action_scan -> {
-                    performScan()
+                R.id.action_scan_unique_solutions -> {
+                    performScanUniqueSolutions()
+                    true
+                }
+                R.id.action_scan_combinations -> {
+                    performScanCombinations()
                     true
                 }
                 R.id.action_save_point -> {
@@ -256,7 +260,41 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
         popup.show()
     }
 
-    private fun performScan() {
+    private fun performScanUniqueSolutions() {
+        progressIndicator.show()
+        
+        // Use coroutine to avoid blocking UI
+        CoroutineScope(Dispatchers.Main).launch {
+            val uniqueSolutions = withContext(Dispatchers.Default) {
+                gameViewModel.scanForUniqueSolutions()
+            }
+            
+            progressIndicator.hide()
+            
+            if (uniqueSolutions.isNotEmpty()) {
+                sudokuGridView.highlightScanResults(uniqueSolutions)
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.unique_solutions_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+                
+                // Clear highlight after 3 seconds
+                launch {
+                    delay(3000)
+                    sudokuGridView.clearScanHighlight()
+                }
+            } else {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.no_unique_solutions_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun performScanCombinations() {
         progressIndicator.show()
         
         // Use coroutine to avoid blocking UI
