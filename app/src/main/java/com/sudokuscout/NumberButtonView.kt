@@ -15,6 +15,7 @@ class NumberButtonView @JvmOverloads constructor(
     private var number: Int = 1
     private var remainingCount: Int = 9
     private var isEnabled: Boolean = true
+    private var isValidForSelection: Boolean = true
 
     // 業界最佳實踐：使用明確的視覺層次
     private val mainTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -38,7 +39,7 @@ class NumberButtonView @JvmOverloads constructor(
 
     private val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = dpToPx(2f)
+        strokeWidth = dpToPx(1.5f)
         color = ContextCompat.getColor(context, R.color.primary)
     }
 
@@ -55,15 +56,16 @@ class NumberButtonView @JvmOverloads constructor(
     
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = dpToPx(2f)
+        strokeWidth = dpToPx(1.5f)
     }
     
     private val gradientPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    fun setNumberData(number: Int, remainingCount: Int) {
+    fun setNumberData(number: Int, remainingCount: Int, isValidForSelection: Boolean = true) {
         this.number = number
         this.remainingCount = remainingCount
         this.isEnabled = remainingCount > 0
+        this.isValidForSelection = isValidForSelection
         invalidate()
     }
 
@@ -77,13 +79,20 @@ class NumberButtonView @JvmOverloads constructor(
         // 優化：更新漸層而非重建 Paint
         gradientPaint.shader = LinearGradient(
             0f, 0f, 0f, height,
-            if (isEnabled) intArrayOf(
-                ContextCompat.getColor(context, R.color.white),
-                0xFFF8F9FA.toInt()
-            ) else intArrayOf(
-                0xFFF5F5F5.toInt(),
-                0xFFEEEEEE.toInt()
-            ),
+            when {
+                !isEnabled -> intArrayOf(
+                    0xFFF5F5F5.toInt(),
+                    0xFFEEEEEE.toInt()
+                )
+                isValidForSelection -> intArrayOf(
+                    ContextCompat.getColor(context, R.color.primary_light),
+                    ContextCompat.getColor(context, R.color.white)
+                )
+                else -> intArrayOf(
+                    ContextCompat.getColor(context, R.color.white),
+                    0xFFF8F9FA.toInt()
+                )
+            },
             null,
             Shader.TileMode.CLAMP
         )
@@ -99,11 +108,12 @@ class NumberButtonView @JvmOverloads constructor(
         canvas.drawRoundRect(0f, 0f, width, height - dpToPx(2f), radius, radius, gradientPaint)
         
         // 優化：更新顏色而非重建 Paint
-        borderPaint.color = if (isEnabled) {
-            ContextCompat.getColor(context, R.color.primary)
-        } else {
-            ContextCompat.getColor(context, R.color.text_secondary)
+        borderPaint.color = when {
+            !isEnabled -> ContextCompat.getColor(context, R.color.text_secondary)
+            isValidForSelection -> ContextCompat.getColor(context, R.color.primary)
+            else -> ContextCompat.getColor(context, R.color.primary_light)
         }
+        borderPaint.strokeWidth = if (isValidForSelection && isEnabled) dpToPx(2f) else dpToPx(1.5f)
         canvas.drawRoundRect(
             dpToPx(1f), dpToPx(1f), 
             width - dpToPx(1f), height - dpToPx(3f), 
@@ -113,12 +123,21 @@ class NumberButtonView @JvmOverloads constructor(
         val centerX = width / 2
         
         // 設置文字顏色
-        if (isEnabled) {
-            mainTextPaint.color = ContextCompat.getColor(context, R.color.primary)
-            countTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
-        } else {
-            mainTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
-            countTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
+        when {
+            !isEnabled -> {
+                mainTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
+                countTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
+            }
+            isValidForSelection -> {
+                mainTextPaint.color = ContextCompat.getColor(context, R.color.primary)
+                countTextPaint.color = ContextCompat.getColor(context, R.color.primary)
+                mainTextPaint.typeface = Typeface.DEFAULT_BOLD
+            }
+            else -> {
+                mainTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
+                countTextPaint.color = ContextCompat.getColor(context, R.color.text_secondary)
+                mainTextPaint.typeface = Typeface.DEFAULT
+            }
         }
 
         // 簡化的文字位置計算 - 確保不被切斷

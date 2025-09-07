@@ -22,26 +22,30 @@
     <color name="error">#FFDC362E</color>             <!-- 錯誤紅色 -->
     <color name="success">#FF4CAF50</color>           <!-- 成功綠色 -->
     
-    <!-- 數獨遊戲專用色彩 -->
-    <color name="sudoku_grid_line">#FF9E9E9E</color>       <!-- 網格線 -->
+    <!-- 數獨遊戲專用色彩 - 優化版本 -->
+    <color name="sudoku_grid_line">#FFE0E0E0</color>       <!-- 網格線 - 更柔和 -->
     <color name="sudoku_thick_line">#FF424242</color>      <!-- 粗網格線 -->
     <color name="sudoku_cell_background">#FFFFFFFF</color>  <!-- 空格背景 -->
-    <color name="sudoku_cell_selected">#FF90CAF9</color>   <!-- 選中格子 - 更明顯的藍色 -->
-    <color name="sudoku_cell_highlighted">#FFF5F5F5</color> <!-- 相關格子 - 淺灰色，更微妙 -->
-    <color name="sudoku_cell_error">@color/accent_light</color>            <!-- 錯誤格子 -->
-    <color name="sudoku_text_given">#FF212121</color>       <!-- 原始數字 -->
-    <color name="sudoku_text_user">@color/primary</color>  <!-- 用戶數字 -->
-    <color name="sudoku_text_error">@color/error</color>   <!-- 錯誤數字 -->
-    <color name="sudoku_notes">#FF757575</color>           <!-- 筆記文字 -->
-    <color name="sudoku_notes_highlighted">@color/primary</color>  <!-- 高亮筆記 -->
-    <color name="sudoku_notes_background">@color/primary_container</color>  <!-- 筆記背景 -->
-    <color name="sudoku_highlight_same">@color/primary_container</color>    <!-- 相同數字 -->
-    <color name="sudoku_scan_highlight">#FFFFF176</color>   <!-- 掃描高亮 -->
+    <color name="sudoku_cell_selected">#80447BCC</color>   <!-- 選中格子 - 調淡的藍色 -->
+    <color name="sudoku_cell_selected_alpha">#4D1976D2</color>   <!-- 選中格子半透明版本 -->
+    <color name="sudoku_cell_highlighted">#FFF0F4FF</color> <!-- 相關格子 - 極淡藍色 -->
+    <color name="sudoku_cell_error">#FFFFEBEE</color>       <!-- 錯誤格子 - 淡粉紅色 -->
+    <color name="sudoku_cell_error_border">#FFEF5350</color> <!-- 錯誤邊框 -->
+    <color name="sudoku_text_given">#FF424242</color>       <!-- 原始數字 - 深灰色 -->
+    <color name="sudoku_text_user">#FF1565C0</color>       <!-- 用戶數字 - 藍色 -->
+    <color name="sudoku_text_error">#FFD32F2F</color>      <!-- 錯誤數字 - 紅色 -->
+    <color name="sudoku_notes">#FF9E9E9E</color>           <!-- 筆記文字 - 淺灰 -->
+    <color name="sudoku_notes_highlighted">#FF1565C0</color>  <!-- 高亮筆記 - 深藍色文字 -->
+    <color name="sudoku_notes_background">#80447BCC</color>  <!-- 筆記背景 - 調淺的藍色背景 -->
+    <color name="sudoku_highlight_same">#FFD4F4D4</color>    <!-- 相同數字 - 調淺的綠色 -->
+    <color name="sudoku_scan_highlight">#FFFFE082</color>   <!-- 掃描高亮 - 黃色 -->
     
     <!-- UI 元件色彩 -->
     <color name="button_primary">@color/primary</color>     <!-- 主要按鈕 -->
     <color name="button_secondary">@color/secondary</color> <!-- 次要按鈕 -->
     <color name="background_light">#FFF8F9FA</color>        <!-- 背景色 -->
+    <color name="surface">#FFFFFFFF</color>                <!-- 表面色彩 -->
+    <color name="surface_variant">#FFF5F5F5</color>        <!-- 表面變體 -->
     <color name="text_primary">#FF212121</color>           <!-- 主要文字 -->
     <color name="text_secondary">#FF757575</color>         <!-- 次要文字 -->
     <color name="text_on_primary">#FFFFFFFF</color>        <!-- 主色上的文字 -->

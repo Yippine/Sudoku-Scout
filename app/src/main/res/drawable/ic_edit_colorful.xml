@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- 背景圓形 - 淺藍色 -->
+    <path
+        android:pathData="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+        android:fillColor="#FFBBDEFB"
+        android:fillAlpha="0.3"/>
+    
+    <!-- 筆記本 - 白色底 -->
+    <path
+        android:pathData="M8,6h8c0.55,0 1,0.45 1,1v10c0,0.55 -0.45,1 -1,1H8c-0.55,0 -1,-0.45 -1,-1V7C7,6.45 7.45,6 8,6z"
+        android:fillColor="#FFFFFFFF"
+        android:strokeWidth="1"
+        android:strokeColor="#FFE0E0E0"/>
+    
+    <!-- 螺旋環裝訂 - 銀色 -->
+    <path
+        android:pathData="M7.5,6.5v11M8.5,6.5v11"
+        android:strokeWidth="1"
+        android:strokeColor="#FF9E9E9E"/>
+    
+    <!-- 筆記線條 - 藍色 -->
+    <path
+        android:pathData="M10,9h5M10,11h4M10,13h5M10,15h3"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FF1565C0"/>
+    
+    <!-- 鉛筆圖標 - 橙色 -->
+    <path
+        android:pathData="M15.5,15.5l1,-1l1.5,1.5l-1,1l-1.5,-1.5z"
+        android:fillColor="#FFFF6F00"/>
+    
+    <!-- 鉛筆筆桿 - 深橙色 -->
+    <path
+        android:pathData="M16.5,14.5l2,-2l0.5,0.5l-2,2l-0.5,-0.5z"
+        android:fillColor="#FFE65100"/>
+    
+    <!-- 活潑小點裝飾 -->
+    <path
+        android:pathData="M13,8m-0.5,0a0.5,0.5 0,1 1,1 0a0.5,0.5 0,1 1,-1 0"
+        android:fillColor="#FF4CAF50"/>
+    <path
+        android:pathData="M14,12m-0.5,0a0.5,0.5 0,1 1,1 0a0.5,0.5 0,1 1,-1 0"
+        android:fillColor="#FFFF1744"/>
+</vector>

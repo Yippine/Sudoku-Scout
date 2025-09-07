@@ -33,6 +33,7 @@ class SudokuGridView @JvmOverloads constructor(
     private lateinit var selectedCellPaint: Paint
     private lateinit var highlightedCellPaint: Paint
     private lateinit var errorCellPaint: Paint
+    private lateinit var errorCellBorderPaint: Paint
     private lateinit var sameNumberHighlightPaint: Paint
     private lateinit var scanHighlightPaint: Paint
     private lateinit var givenTextPaint: Paint
@@ -105,13 +106,13 @@ class SudokuGridView @JvmOverloads constructor(
         
         gridLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_grid_line, null)
-            strokeWidth = dpToPx(1f)
+            strokeWidth = dpToPx(0.8f)
             style = Paint.Style.STROKE
         }
         
         thickLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_thick_line, null)
-            strokeWidth = dpToPx(3f)
+            strokeWidth = dpToPx(2f)
             style = Paint.Style.STROKE
         }
         
@@ -135,6 +136,12 @@ class SudokuGridView @JvmOverloads constructor(
             style = Paint.Style.FILL
         }
         
+        errorCellBorderPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = resources.getColor(R.color.sudoku_cell_error_border, null)
+            style = Paint.Style.STROKE
+            strokeWidth = dpToPx(1.5f)
+        }
+        
         sameNumberHighlightPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_highlight_same, null)
             style = Paint.Style.FILL
@@ -148,19 +155,19 @@ class SudokuGridView @JvmOverloads constructor(
         givenTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_text_given, null)
             textAlign = Paint.Align.CENTER
-            typeface = Typeface.DEFAULT_BOLD
+            typeface = Typeface.DEFAULT
         }
         
         userTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_text_user, null)
             textAlign = Paint.Align.CENTER
-            typeface = Typeface.DEFAULT_BOLD
+            typeface = Typeface.DEFAULT
         }
         
         errorTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = resources.getColor(R.color.sudoku_text_error, null)
             textAlign = Paint.Align.CENTER
-            typeface = Typeface.DEFAULT_BOLD
+            typeface = Typeface.DEFAULT
         }
         
         notesPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -170,7 +177,7 @@ class SudokuGridView @JvmOverloads constructor(
         }
         
         notesHighlightedPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = resources.getColor(R.color.sudoku_notes_highlighted, null)
+            color = resources.getColor(R.color.sudoku_notes_highlighted, null)  // 深藍色文字在淺藍色背景上
             textAlign = Paint.Align.CENTER
             typeface = Typeface.DEFAULT_BOLD
         }
@@ -244,6 +251,11 @@ class SudokuGridView @JvmOverloads constructor(
                 }
                 
                 canvas.drawRect(cellRect, paint)
+                
+                // Draw error border if cell has error
+                if (cell.isError) {
+                    canvas.drawRect(cellRect, errorCellBorderPaint)
+                }
             }
         }
     }
@@ -353,8 +365,14 @@ class SudokuGridView @JvmOverloads constructor(
                 
                 // 優化：使用預先創建的 Paint 物件，遵循高亮設定
                 val textPaint = if (number == highlightNumber && highlightSameNumbers) {
-                    val radius = noteSize * 0.45f  // 增大高亮範圍從 0.35f 到 0.45f
-                    canvas.drawCircle(noteX, noteY, radius, notesBackgroundPaint)
+                    // 將圓形改為正方形背景
+                    val rectSize = noteSize * 0.9f  // 正方形大小
+                    val rectLeft = noteX - rectSize / 2
+                    val rectTop = noteY - rectSize / 2
+                    val rectRight = noteX + rectSize / 2
+                    val rectBottom = noteY + rectSize / 2
+                    
+                    canvas.drawRect(rectLeft, rectTop, rectRight, rectBottom, notesBackgroundPaint)
                     notesHighlightedPaint
                 } else {
                     notesPaint

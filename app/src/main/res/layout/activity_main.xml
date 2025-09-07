@@ -43,7 +43,7 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/noteModeChip"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
@@ -94,7 +94,7 @@
 
         <Button
             android:id="@+id/btnUndo"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/undo"
@@ -103,7 +103,7 @@
 
         <Button
             android:id="@+id/btnErase"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/erase"
@@ -112,7 +112,7 @@
 
         <Button
             android:id="@+id/btnHint"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/hint"
@@ -121,7 +121,7 @@
 
         <Button
             android:id="@+id/btnAutoNotes"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/auto_notes"
@@ -130,7 +130,7 @@
 
         <Button
             android:id="@+id/btnScan"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/scan"
@@ -156,7 +156,7 @@
 
         <Button
             android:id="@+id/btnSavePoint"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/save_point"
@@ -165,7 +165,7 @@
 
         <Button
             android:id="@+id/btnRestorePoint"
-            style="@style/ToolbarButton"
+            style="@style/ImprovedToolButton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/restore_point"

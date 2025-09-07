@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- 點擊狀態 - 瞬間高亮效果 -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#40447BCC" />
+            <corners android:radius="12dp" />
+            <stroke 
+                android:width="1dp" 
+                android:color="@color/primary" />
+        </shape>
+    </item>
+    
+    <!-- 正常狀態 - 透明 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    
+</selector>

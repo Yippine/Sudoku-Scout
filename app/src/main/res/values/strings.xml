@@ -16,8 +16,8 @@
     <string name="save_point">Save Point</string>
     <string name="restore_point">Restore Point</string>
     <string name="scan">Scan</string>
-    <string name="scan_unique_solutions">找出正解</string>
-    <string name="scan_combinations">找出組合</string>
+    <string name="scan_unique_solutions">Find Solution</string>
+    <string name="scan_combinations">Find Combinations</string>
     <string name="validate_immediately">Validate Immediately</string>
     <string name="validate_at_end">Validate at End</string>
     <string name="congratulations">Congratulations!</string>
@@ -75,5 +75,23 @@
     <string name="about">About</string>
     <string name="version">Version 1.0.0</string>
     <string name="app_description">A feature-rich Sudoku game with advanced functions including notes, hints, save points, scanning and more.</string>
+    
+    <!-- Main Menu strings -->
+    <string name="main_menu_subtitle">Choose your challenge</string>
+    <string name="easy_desc">Perfect for beginners</string>
+    <string name="medium_desc">Balanced challenge</string>
+    <string name="hard_desc">For experienced players</string>
+    <string name="expert_desc">Mind-bending puzzles</string>
+    <string name="evil_desc">Only for Sudoku masters</string>
+    
+    <!-- New game confirmation -->
+    <string name="confirm_new_game">Start New Game?</string>
+    <string name="new_game_warning">Starting a new game will lose your current progress. Continue anyway?</string>
+    
+    <!-- Statistics -->
+    <string name="stats_completed">Completed</string>
+    <string name="stats_avg_time">Avg Time</string>
+    <string name="stats_best_time">Best Time</string>
+    <string name="continue_current_game">Continue Current Game</string>
     
 </resources>

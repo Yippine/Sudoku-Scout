@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- 掃描框外圍 - 深藍色 -->
+    <path
+        android:pathData="M3,3h4v2H5v2H3V3z M3,15H5v2h2v2H3V15z M21,3v4h-2V5h-2V3H21z M17,17h2v2h2v2h-4V17z"
+        android:fillColor="#FF1565C0"/>
+    
+    <!-- 掃描器內容區域 - 淺色背景 -->
+    <path
+        android:pathData="M6,6h12v12H6V6z"
+        android:fillColor="#FFF8F9FA"
+        android:strokeWidth="1"
+        android:strokeColor="#FFE0E0E0"/>
+    
+    <!-- 數字格子模擬 - 藍色 -->
+    <path
+        android:pathData="M8,8h2v2H8V8z M11,8h2v2h-2V8z M14,8h2v2h-2V8z M8,11h2v2H8V11z M11,11h2v2h-2V11z M14,11h2v2h-2V11z M8,14h2v2H8V14z M11,14h2v2h-2V14z M14,14h2v2h-2V14z"
+        android:fillColor="#FFBBDEFB"/>
+    
+    <!-- 部分數字填入 - 深藍色 -->
+    <path
+        android:pathData="M11,8h2v2h-2V8z M8,11h2v2H8V11z M14,14h2v2h-2V14z"
+        android:fillColor="#FF1565C0"/>
+    
+    <!-- 掃描光線效果 - 黃綠色 -->
+    <path
+        android:pathData="M6,12h12v1H6V12z"
+        android:fillColor="#FF64DD17"
+        android:fillAlpha="0.8"/>
+    
+    <!-- 雷達點 - 紅色 -->
+    <path
+        android:pathData="M20,2m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
+        android:fillColor="#FFFF1744"/>
+    
+    <!-- 搜尋放大鏡 - 橙色 -->
+    <path
+        android:pathData="M19,19l1.5,1.5l-0.7,0.7L18.3,19.7c-0.4,0.3 -0.9,0.5 -1.4,0.5c-1.38,0 -2.5,-1.12 -2.5,-2.5S15.52,15.2 16.9,15.2s2.5,1.12 2.5,2.5C19.4,18.1 19.2,18.6 19,19z M16.9,16.2c-0.77,0 -1.4,0.63 -1.4,1.4s0.63,1.4 1.4,1.4s1.4,-0.63 1.4,-1.4S17.67,16.2 16.9,16.2z"
+        android:fillColor="#FFFF6F00"/>
+</vector>

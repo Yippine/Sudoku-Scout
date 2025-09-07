@@ -16,8 +16,18 @@
     <string name="save_point">記錄點</string>
     <string name="restore_point">還原記錄點</string>
     <string name="scan">掃描</string>
+    <string name="scan_unique_solutions">找出正解</string>
+    <string name="scan_combinations">找出組合</string>
     <string name="validate_immediately">即時校驗</string>
     <string name="validate_at_end">完成後校驗</string>
+    
+    <!-- Main Menu strings -->
+    <string name="main_menu_subtitle">選擇你的挑戰</string>
+    <string name="easy_desc">適合初學者</string>
+    <string name="medium_desc">平衡挑戰</string>
+    <string name="hard_desc">適合有經驗的玩家</string>
+    <string name="expert_desc">燒腦謎題</string>
+    <string name="evil_desc">只適合數獨大師</string>
     <string name="congratulations">恭喜！</string>
     <string name="sudoku_solved">您已成功完成數獨！</string>
     <string name="error_title">錯誤</string>
@@ -27,6 +37,8 @@
     <string name="remaining_count">剩餘: %d</string>
     <string name="scan_found">找到組合</string>
     <string name="no_combinations_found">未找到任何組合</string>
+    <string name="unique_solutions_found">找到唯一解</string>
+    <string name="no_unique_solutions_found">未找到唯一解</string>
     
     <!-- Language settings -->
     <string name="language">語言</string>
@@ -71,4 +83,18 @@
     <string name="incorrect_answer_hint">此數字不符合正確解答。請嘗試其他數字或使用提示功能。</string>
     <string name="invalid_cell">無法修改此格子</string>
     <string name="validation_mode_changed_with_errors">已切換至即時校驗模式。發現 %d 個錯誤項目，已標示為紅色。</string>
+    
+    <!-- Missing strings for settings -->
+    <string name="validate_immediately_description">紅色高亮幫助您更快學習。基本規則違規（重複數字）始終會被阻止。</string>
+    <string name="validate_at_end_description">適合希望自己發現錯誤的有經驗玩家。基本規則違規仍會被阻止。</string>
+    
+    <!-- New game confirmation -->
+    <string name="confirm_new_game">開始新遊戲？</string>
+    <string name="new_game_warning">開始新遊戲將失去目前的進度。確定要繼續嗎？</string>
+    
+    <!-- Statistics -->
+    <string name="stats_completed">已完成</string>
+    <string name="stats_avg_time">平均時間</string>
+    <string name="stats_best_time">最佳時間</string>
+    <string name="continue_current_game">繼續當前遊戲</string>
 </resources>

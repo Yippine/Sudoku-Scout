@@ -13,7 +13,6 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: MaterialToolbar
     private lateinit var validationRadioGroup: RadioGroup
-    private lateinit var defaultDifficultyRadioGroup: RadioGroup
     private lateinit var languageRadioGroup: RadioGroup
     private lateinit var switchAutoNotesOnStart: SwitchMaterial
     private lateinit var switchHighlightSameNumbers: SwitchMaterial
@@ -39,7 +38,6 @@ class SettingsActivity : AppCompatActivity() {
     private fun initializeViews() {
         toolbar = findViewById(R.id.toolbar)
         validationRadioGroup = findViewById(R.id.validationRadioGroup)
-        defaultDifficultyRadioGroup = findViewById(R.id.defaultDifficultyRadioGroup)
         languageRadioGroup = findViewById(R.id.languageRadioGroup)
         switchAutoNotesOnStart = findViewById(R.id.switchAutoNotesOnStart)
         switchHighlightSameNumbers = findViewById(R.id.switchHighlightSameNumbers)
@@ -64,17 +62,7 @@ class SettingsActivity : AppCompatActivity() {
             validationRadioGroup.check(R.id.radioValidateAtEnd)
         }
         
-        // Load default difficulty
-        val defaultDifficulty = sharedPreferences.getString("default_difficulty", "MEDIUM")
-        val difficultyRadioId = when (defaultDifficulty) {
-            "EASY" -> R.id.radioEasy
-            "MEDIUM" -> R.id.radioMedium
-            "HARD" -> R.id.radioHard
-            "EXPERT" -> R.id.radioExpert
-            "EVIL" -> R.id.radioEvil
-            else -> R.id.radioMedium
-        }
-        defaultDifficultyRadioGroup.check(difficultyRadioId)
+        // Default difficulty setting removed - now handled in main menu
         
         // Load language setting
         val currentLanguage = LocaleHelper.getLanguage(this)
@@ -100,20 +88,7 @@ class SettingsActivity : AppCompatActivity() {
                 .apply()
         }
         
-        // Default difficulty listener
-        defaultDifficultyRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            val difficulty = when (checkedId) {
-                R.id.radioEasy -> "EASY"
-                R.id.radioMedium -> "MEDIUM"
-                R.id.radioHard -> "HARD"
-                R.id.radioExpert -> "EXPERT"
-                R.id.radioEvil -> "EVIL"
-                else -> "MEDIUM"
-            }
-            sharedPreferences.edit()
-                .putString("default_difficulty", difficulty)
-                .apply()
-        }
+        // Default difficulty setting removed - now handled in main menu
         
         // Language setting listener
         languageRadioGroup.setOnCheckedChangeListener { _, checkedId ->

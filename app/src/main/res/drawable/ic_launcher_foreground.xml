@@ -5,43 +5,65 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     
-    <group android:scaleX="0.8" android:scaleY="0.8" 
-           android:translateX="10.8" android:translateY="10.8">
+    <group android:scaleX="0.85" android:scaleY="0.85" 
+           android:translateX="8.1" android:translateY="8.1">
         
-        <!-- Background circle -->
-        <path
-            android:fillColor="@color/white"
-            android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+        <!-- Modern gradient background circle -->
+        <path android:fillColor="#FF1565C0"
+            android:pathData="M54,54m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0" />
         
-        <!-- Sudoku grid - main lines -->
-        <path
-            android:strokeColor="@color/primary"
+        <!-- Inner gradient highlight -->
+        <path android:fillColor="#FF1976D2"
+            android:pathData="M54,54m-38,0a38,38 0,1 1,76 0a38,38 0,1 1,-76 0" />
+        
+        <!-- Clean white Sudoku grid background -->
+        <path android:fillColor="@color/white"
+            android:pathData="M28,28 L80,28 L80,80 L28,80 Z" 
+            android:strokeColor="#FFF5F5F5"
+            android:strokeWidth="1"/>
+        
+        <!-- Main 3x3 thick grid lines -->
+        <path android:strokeColor="#FF424242"
+            android:strokeWidth="3"
+            android:pathData="M28,28 L80,28 M28,45.33 L80,45.33 M28,62.67 L80,62.67 M28,80 L80,80 M28,28 L28,80 M45.33,28 L45.33,80 M62.67,28 L62.67,80 M80,28 L80,80" />
+        
+        <!-- Subtle inner grid lines -->
+        <path android:strokeColor="#FFBDBDBD"
+            android:strokeWidth="1"
+            android:pathData="M28,34 L80,34 M28,39 L80,39 M28,51 L80,51 M28,57 L80,57 M28,68 L80,68 M28,74 L80,74 M34,28 L34,80 M39,28 L39,80 M51,28 L51,80 M57,28 L57,80 M68,28 L68,80 M74,28 L74,80" />
+        
+        <!-- Strategic number placement with modern font feel -->
+        <!-- Number 9 (top-left) -->
+        <path android:fillColor="#FF1565C0"
+            android:pathData="M30,30 L43,30 L43,43 L30,43 Z" 
+            android:strokeColor="@color/white"
+            android:strokeWidth="1"/>
+        <path android:fillColor="@color/white"
+            android:pathData="M34,33 L36,33 L36,40 L34,40 Z M37,33 L39,33 L39,37 L37,37 Z M37,38 L39,38 L39,40 L37,40 Z" />
+        
+        <!-- Number 5 (middle) -->
+        <path android:fillColor="#FF0097A7"
+            android:pathData="M48,48 L61,48 L61,61 L48,61 Z" 
+            android:strokeColor="@color/white"
+            android:strokeWidth="1"/>
+        <path android:fillColor="@color/white"
+            android:pathData="M51,51 L58,51 L58,53 L51,53 Z M51,53 L51,56 L53,56 L56,56 L56,58 L53,58 L51,58 Z" />
+        
+        <!-- Number 3 (bottom-right) -->
+        <path android:fillColor="#FFFF6F00"
+            android:pathData="M65,65 L78,65 L78,78 L65,78 Z" 
+            android:strokeColor="@color/white"
+            android:strokeWidth="1"/>
+        <path android:fillColor="@color/white"
+            android:pathData="M68,68 L75,68 L75,70 L68,70 Z M70,70 L75,70 L75,72 L70,72 Z M68,72 L75,72 L75,75 L68,75 Z" />
+        
+        <!-- Small detective magnifying glass accent -->
+        <path android:fillColor="@color/white"
+            android:strokeColor="#FF1565C0"
             android:strokeWidth="2"
-            android:fillColor="@android:color/transparent"
-            android:pathData="M30,30 L78,30 M30,42 L78,42 M30,54 L78,54 M30,66 L78,66 M30,78 L78,78 M30,30 L30,78 M42,30 L42,78 M54,30 L54,78 M66,30 L66,78 M78,30 L78,78" />
-        
-        <!-- Thick grid lines for 3x3 boxes -->
-        <path
-            android:strokeColor="@color/primary"
-            android:strokeWidth="4"
-            android:fillColor="@android:color/transparent"
-            android:pathData="M30,30 L78,30 M30,54 L78,54 M30,78 L78,78 M30,30 L30,78 M54,30 L54,78 M78,30 L78,78" />
-        
-        <!-- Simple filled squares to represent numbers -->
-        <path
-            android:fillColor="@color/primary"
-            android:pathData="M32,32 L40,32 L40,40 L32,40 Z" />
-        
-        <path
-            android:fillColor="@color/primary"
-            android:pathData="M56,32 L64,32 L64,40 L56,40 Z" />
-        
-        <path
-            android:fillColor="@color/primary"
-            android:pathData="M32,56 L40,56 L40,64 L32,64 Z" />
-        
-        <path
-            android:fillColor="@color/primary"
-            android:pathData="M68,56 L76,56 L76,64 L68,64 Z" />
+            android:pathData="M72,36m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+        <path android:strokeColor="#FF1565C0"
+            android:strokeWidth="2"
+            android:pathData="M76,40 L78,42" />
     </group>
 </vector>

@@ -16,8 +16,18 @@
     <string name="save_point">记录点</string>
     <string name="restore_point">还原记录点</string>
     <string name="scan">扫描</string>
+    <string name="scan_unique_solutions">找出正解</string>
+    <string name="scan_combinations">找出组合</string>
     <string name="validate_immediately">即时校验</string>
     <string name="validate_at_end">完成后校验</string>
+    
+    <!-- Main Menu strings -->
+    <string name="main_menu_subtitle">选择你的挑战</string>
+    <string name="easy_desc">适合初学者</string>
+    <string name="medium_desc">平衡挑战</string>
+    <string name="hard_desc">适合有经验的玩家</string>
+    <string name="expert_desc">烧脑谜题</string>
+    <string name="evil_desc">只适合数独大师</string>
     <string name="congratulations">恭喜！</string>
     <string name="sudoku_solved">您已成功完成数独！</string>
     <string name="error_title">错误</string>
@@ -27,6 +37,8 @@
     <string name="remaining_count">剩余: %d</string>
     <string name="scan_found">找到组合</string>
     <string name="no_combinations_found">未找到任何组合</string>
+    <string name="unique_solutions_found">找到唯一解</string>
+    <string name="no_unique_solutions_found">未找到唯一解</string>
     
     <!-- Language settings -->
     <string name="language">语言</string>
@@ -55,4 +67,34 @@
     <!-- Toast messages -->
     <string name="cannot_undo">无法撤销</string>
     <string name="no_save_point">没有保存点</string>
+    <string name="change_difficulty">更改难度</string>
+    <string name="lose_progress_warning">更改难度将失去当前的进度。确定要继续吗？</string>
+    <string name="continue_anyway">仍要继续</string>
+    <string name="cancel">取消</string>
+    <string name="note_toggled">笔记 %d 已切换</string>
+    <string name="invalid_note">无法新增笔记 %d - 该数字已存在于该行、列或九宫格中</string>
+    <string name="save_point_created">已建立记录点</string>
+    <string name="save_point_restored">游戏已还原至记录点</string>
+    <string name="validation_errors_found">部分填入的数字有错误 - 已标示为红色</string>
+    
+    <!-- Enhanced error messages -->
+    <string name="duplicate_number_error">数字 %d 已存在于此行、列或九宫格中</string>
+    <string name="duplicate_number_in_notes">无法新增笔记 %d - 数字与现有数字冲突</string>
+    <string name="incorrect_answer_hint">此数字不符合正确解答。请尝试其他数字或使用提示功能。</string>
+    <string name="invalid_cell">无法修改此格子</string>
+    <string name="validation_mode_changed_with_errors">已切换至即时校验模式。发现 %d 个错误项目，已标示为红色。</string>
+    
+    <!-- Missing strings for settings -->
+    <string name="validate_immediately_description">红色高亮帮助您更快学习。基本规则违规（重复数字）始终会被阻止。</string>
+    <string name="validate_at_end_description">适合希望自己发现错误的有经验玩家。基本规则违规仍会被阻止。</string>
+    
+    <!-- New game confirmation -->
+    <string name="confirm_new_game">开始新游戏？</string>
+    <string name="new_game_warning">开始新游戏将失去当前的进度。确定要继续吗？</string>
+    
+    <!-- Statistics -->
+    <string name="stats_completed">已完成</string>
+    <string name="stats_avg_time">平均时间</string>
+    <string name="stats_best_time">最佳时间</string>
+    <string name="continue_current_game">继续当前游戏</string>
 </resources>

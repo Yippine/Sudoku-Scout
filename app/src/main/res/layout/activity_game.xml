@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".MainActivity">
+
+    <!-- Fixed Header Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerBar"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:background="@color/primary"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Back/Menu Button -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back to menu"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- App Name -->
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnNewGame"
+            app:layout_constraintStart_toEndOf="@id/btnBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- New Game Button -->
+        <ImageButton
+            android:id="@+id/btnNewGame"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="New Game"
+            android:src="@drawable/ic_new_game"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnHeaderSettings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Settings Button -->
+        <ImageButton
+            android:id="@+id/btnHeaderSettings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Settings"
+            android:src="@drawable/ic_settings"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Complete Tools Panel (Top) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolsContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="2dp"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerBar">
+
+        <!-- Primary Tools Row -->
+        <LinearLayout
+            android:id="@+id/primaryToolsRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnUndo"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_undo_colorful"
+                android:text="@string/undo" />
+
+            <Button
+                android:id="@+id/btnErase"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_erase_colorful"
+                android:text="@string/erase" />
+
+            <Button
+                android:id="@+id/btnHint"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_hint_colorful"
+                android:text="@string/hint" />
+
+            <Button
+                android:id="@+id/btnAutoNotes"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_auto_notes_colorful"
+                android:text="@string/auto_notes" />
+
+        </LinearLayout>
+
+        <!-- Secondary Tools Row -->
+        <LinearLayout
+            android:id="@+id/secondaryToolsRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/primaryToolsRow">
+
+            <Button
+                android:id="@+id/btnSavePoint"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_save_colorful"
+                android:text="@string/save_point" />
+
+            <Button
+                android:id="@+id/btnRestorePoint"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_restore_colorful"
+                android:text="@string/restore_point" />
+
+            <Button
+                android:id="@+id/btnScanSolutions"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_scan_colorful"
+                android:text="@string/scan_unique_solutions" />
+
+            <Button
+                android:id="@+id/btnScanCombinations"
+                style="@style/ImprovedToolButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_scan_colorful"
+                android:text="@string/scan_combinations" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Sudoku Grid Container (Center) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sudokuContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toTopOf="@id/numberContainer"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolsContainer">
+
+        <FrameLayout
+            android:id="@+id/sudokuGridFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/sudoku_cell_background"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Progress indicator for scanning -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Number Input Panel with Notes Toggle (Bottom) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/numberContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="2dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Notes Toggle Button Row -->
+        <LinearLayout
+            android:id="@+id/notesToggleRow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnNoteModeToggle"
+                style="@style/EnhancedNotesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="68dp"
+                android:checkable="true"
+                android:text="@string/notes"
+                android:drawableStart="@drawable/ic_edit_colorful"
+                android:layout_margin="1dp" />
+
+        </LinearLayout>
+
+        <!-- Number Buttons Grid -->
+        <LinearLayout
+            android:id="@+id/numberPanel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notesToggleRow">
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber1"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="1" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber2"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="2" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber3"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="3" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber4"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="4" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber5"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="5" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber6"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="6" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber7"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="7" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber8"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="8" />
+
+            <com.sudokuscout.NumberButtonView
+                android:id="@+id/btnNumber9"
+                android:layout_width="0dp"
+                android:layout_height="68dp"
+                android:layout_weight="1"
+                android:layout_margin="1dp"
+                android:tag="9" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

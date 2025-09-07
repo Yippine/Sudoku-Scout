@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- 文件底色 - 淺藍色 -->
+    <path
+        android:pathData="M14,2H6C4.9,2 4,2.9 4,4v16c0,1.1 0.89,2 2,2h12c1.1,0 2,-0.9 2,-2V8L14,2z"
+        android:fillColor="#FFBBDEFB"/>
+    
+    <!-- 文件折角 - 深藍色 -->
+    <path
+        android:pathData="M14,2v6h6l-6,-6z"
+        android:fillColor="#FF1565C0"/>
+    
+    <!-- 恢復箭頭圓弧 - 橙色 -->
+    <path
+        android:pathData="M12,6C8.69,6 6,8.69 6,12s2.69,6 6,6c2.97,0 5.43,-2.16 5.9,-5h-2.02c-0.41,2,-2.07,3.5 -4.38,3.5c-2.49,0 -4.5,-2.01 -4.5,-4.5S9.51,7.5 12,7.5c1.24,0 2.36,0.51 3.17,1.33L13,11h5V6l-1.5,1.5C15.66,6.56 13.94,6 12,6z"
+        android:fillColor="#FFFF6F00"/>
+    
+    <!-- 箭頭強調 - 深橙色 -->
+    <path
+        android:pathData="M16.5,7.5L18,6v5h-5l2.17,-2.17c-0.6,-0.6 -1.43,-0.98 -2.34,-0.98c-1.31,0 -2.44,0.77 -2.96,1.89l-1.32,-0.55C9.26,7.61 10.51,7 12,7C13.36,7 14.6,7.49 15.5,8.33L16.5,7.5z"
+        android:fillColor="#FFE65100"/>
+    
+    <!-- 時間標記 - 綠色 -->
+    <path
+        android:pathData="M12,10v4l3,2l-1,1.5l-4,-2.5V10H12z"
+        android:fillColor="#FF4CAF50"
+        android:fillAlpha="0.7"/>
+</vector>

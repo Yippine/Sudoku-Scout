@@ -515,6 +515,16 @@ class GameState(private val difficulty: Difficulty) {
         return SudokuLogic.getRemainingCount(_grid, number)
     }
     
+    fun getValidNumbersForSelectedCell(): Set<Int> {
+        return _currentSelection?.let { (row, col) ->
+            if (_grid[row][col].value == 0 && !_grid[row][col].isGiven) {
+                SudokuLogic.getPossibleNumbers(_grid, row, col).toSet()
+            } else {
+                emptySet()
+            }
+        } ?: emptySet()
+    }
+    
     private fun saveToHistory() {
         if (_history.size >= 50) { // Limit history size
             _history.removeAt(0)

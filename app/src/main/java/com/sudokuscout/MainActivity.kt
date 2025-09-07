@@ -3,15 +3,11 @@ package com.sudokuscout
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 // 移除未使用的導入
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import android.widget.LinearLayout
@@ -26,9 +22,7 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
 
     private lateinit var gameViewModel: GameViewModel
     private lateinit var sudokuGridView: SudokuGridView
-    private lateinit var toolbar: MaterialToolbar
-    private lateinit var difficultyChip: Chip
-    private lateinit var noteModeChip: Chip
+    private lateinit var noteModeButton: Button
     private lateinit var numberPanel: LinearLayout
     private lateinit var progressIndicator: CircularProgressIndicator
     
@@ -36,7 +30,6 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
     private lateinit var btnUndo: Button
     private lateinit var btnErase: Button
     private lateinit var btnHint: Button
-    private lateinit var btnMoreTools: Button
     
     // 移除未使用的按鈕變數
     
@@ -53,40 +46,104 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_new)
+        setContentView(R.layout.activity_game)
         
         gameViewModel = ViewModelProvider(this)[GameViewModel::class.java]
         
         initializeViews()
-        setupToolbar()
         setupSudokuGrid()
         setupToolButtons()
         setupNumberButtons()
         setupObservers()
         
-        // Start with medium difficulty
-        gameViewModel.newGame(Difficulty.MEDIUM)
+        // Get difficulty from intent or use medium as default
+        val difficultyName = intent.getStringExtra("DIFFICULTY")
+        val selectedDifficulty = if (difficultyName != null) {
+            try {
+                Difficulty.valueOf(difficultyName)
+            } catch (e: IllegalArgumentException) {
+                Difficulty.MEDIUM
+            }
+        } else {
+            Difficulty.MEDIUM
+        }
+        
+        gameViewModel.newGame(selectedDifficulty)
         
         // 確保高亮設定載入
         sudokuGridView.refreshSettings()
     }
 
     private fun initializeViews() {
-        toolbar = findViewById(R.id.toolbar)
-        difficultyChip = findViewById(R.id.difficultyChip)
-        noteModeChip = findViewById(R.id.noteModeChip)
+        noteModeButton = findViewById(R.id.btnNoteModeToggle)
         numberPanel = findViewById(R.id.numberPanel)
         progressIndicator = findViewById(R.id.progressIndicator)
         
         btnUndo = findViewById(R.id.btnUndo)
         btnErase = findViewById(R.id.btnErase)
         btnHint = findViewById(R.id.btnHint)
-        btnMoreTools = findViewById(R.id.btnMoreTools)
+        
+        // Header buttons
+        val btnBack = findViewById<View>(R.id.btnBack)
+        val btnNewGame = findViewById<View>(R.id.btnNewGame)
+        val btnHeaderSettings = findViewById<View>(R.id.btnHeaderSettings)
+        
+        // Additional tool buttons
+        val btnAutoNotes = findViewById<Button>(R.id.btnAutoNotes)
+        val btnSavePoint = findViewById<Button>(R.id.btnSavePoint)
+        val btnRestorePoint = findViewById<Button>(R.id.btnRestorePoint)
+        val btnScanSolutions = findViewById<Button>(R.id.btnScanSolutions)
+        val btnScanCombinations = findViewById<Button>(R.id.btnScanCombinations)
+        
+        setupHeaderButtons(btnBack, btnNewGame, btnHeaderSettings)
+        setupAdditionalToolButtons(btnAutoNotes, btnSavePoint, btnRestorePoint, btnScanSolutions, btnScanCombinations)
     }
 
-    private fun setupToolbar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = getString(R.string.app_name)
+    private fun setupHeaderButtons(btnBack: View, btnNewGame: View, btnHeaderSettings: View) {
+        btnBack.setOnClickListener {
+            finish() // Return to main menu
+        }
+        
+        btnNewGame.setOnClickListener {
+            showNewGameConfirmationDialog()
+        }
+        
+        btnHeaderSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+    
+    private fun setupAdditionalToolButtons(
+        btnAutoNotes: Button,
+        btnSavePoint: Button,
+        btnRestorePoint: Button,
+        btnScanSolutions: Button,
+        btnScanCombinations: Button
+    ) {
+        btnAutoNotes.setOnClickListener {
+            gameViewModel.toggleAutoNotes()
+        }
+        
+        btnSavePoint.setOnClickListener {
+            gameViewModel.createSavePoint()
+            Toast.makeText(this, getString(R.string.save_point_created), Toast.LENGTH_SHORT).show()
+        }
+        
+        btnRestorePoint.setOnClickListener {
+            if (!gameViewModel.restoreSavePoint()) {
+                Toast.makeText(this, getString(R.string.no_save_point), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(R.string.save_point_restored), Toast.LENGTH_SHORT).show()
+            }
+        }
+        
+        btnScanSolutions.setOnClickListener {
+            performScanUniqueSolutions()
+        }
+        
+        btnScanCombinations.setOnClickListener {
+            performScanCombinations()
+        }
     }
 
     private fun setupSudokuGrid() {
@@ -114,12 +171,9 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
             }
         }
         
-        btnMoreTools.setOnClickListener { view ->
-            showToolsMenu(view)
-        }
-        
-        noteModeChip.setOnCheckedChangeListener { _, isChecked ->
-            gameViewModel.setNotesMode(isChecked)
+        noteModeButton.setOnClickListener {
+            val currentMode = gameViewModel.isNotesMode.value ?: false
+            gameViewModel.setNotesMode(!currentMode)
         }
     }
 
@@ -168,28 +222,27 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
             updateNumberButtons(gameState)
         }
         
-        gameViewModel.currentDifficulty.observe(this) { difficulty ->
-            difficultyChip.text = when (difficulty) {
-                Difficulty.EASY -> getString(R.string.easy)
-                Difficulty.MEDIUM -> getString(R.string.medium)
-                Difficulty.HARD -> getString(R.string.hard)
-                Difficulty.EXPERT -> getString(R.string.expert)
-                Difficulty.EVIL -> getString(R.string.evil)
-                null -> getString(R.string.easy) // Handle potential null
-            }
-        }
-        
         gameViewModel.isNotesMode.observe(this) { isNotesMode ->
-            noteModeChip.isChecked = isNotesMode
+            // Update button state for proper background styling
+            noteModeButton.isSelected = isNotesMode
             
-            // Provide visual feedback for notes mode
+            // Update text and drawable colors based on state
             if (isNotesMode) {
-                noteModeChip.setChipBackgroundColorResource(R.color.button_primary)
-                noteModeChip.setTextColor(ContextCompat.getColor(this, R.color.white))
+                noteModeButton.setTextColor(ContextCompat.getColor(this, R.color.primary))
+                // Force update drawable tint for selected state
+                noteModeButton.compoundDrawablesRelative.forEach { drawable ->
+                    drawable?.setTint(ContextCompat.getColor(this, R.color.primary))
+                }
             } else {
-                noteModeChip.setChipBackgroundColorResource(android.R.color.transparent)
-                noteModeChip.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+                noteModeButton.setTextColor(ContextCompat.getColor(this, R.color.primary))
+                // Force update drawable tint for normal state
+                noteModeButton.compoundDrawablesRelative.forEach { drawable ->
+                    drawable?.setTint(ContextCompat.getColor(this, R.color.primary))
+                }
             }
+            
+            // Force refresh the button appearance
+            noteModeButton.invalidate()
         }
         
         gameViewModel.gameCompleted.observe(this) { isCompleted ->
@@ -207,58 +260,26 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
     }
 
     private fun updateNumberButtons(gameState: GameState) {
+        val validNumbers = gameState.getValidNumbersForSelectedCell()
+        
         for (i in 0 until numberButtons.size) {
             val number = i + 1
             val button = numberButtons[i]
             val remainingCount = gameState.getRemainingCount(number)
             
+            // Check if this number is valid for the currently selected cell
+            val isValidForSelection = if (gameState.currentSelection != null) {
+                validNumbers.contains(number)
+            } else {
+                true // If no cell is selected, show all as normal
+            }
+            
             // Update button data using our custom view
-            button.setNumberData(number, remainingCount)
+            button.setNumberData(number, remainingCount, isValidForSelection)
         }
     }
     
 
-    private fun showToolsMenu(anchorView: View) {
-        val popup = PopupMenu(this, anchorView)
-        popup.menuInflater.inflate(R.menu.tools_menu, popup.menu)
-        
-        // Update restore point menu item availability
-        val restoreItem = popup.menu.findItem(R.id.action_restore_point)
-        restoreItem?.isEnabled = gameViewModel.gameState.value?.hasSavePoint() == true
-        
-        popup.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.action_auto_notes -> {
-                    gameViewModel.toggleAutoNotes()
-                    true
-                }
-                R.id.action_scan_unique_solutions -> {
-                    performScanUniqueSolutions()
-                    true
-                }
-                R.id.action_scan_combinations -> {
-                    performScanCombinations()
-                    true
-                }
-                R.id.action_save_point -> {
-                    gameViewModel.createSavePoint()
-                    Toast.makeText(this, getString(R.string.save_point_created), Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.action_restore_point -> {
-                    if (!gameViewModel.restoreSavePoint()) {
-                        Toast.makeText(this, getString(R.string.no_save_point), Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, getString(R.string.save_point_restored), Toast.LENGTH_SHORT).show()
-                    }
-                    true
-                }
-                else -> false
-            }
-        }
-        
-        popup.show()
-    }
 
     private fun performScanUniqueSolutions() {
         progressIndicator.show()
@@ -328,6 +349,38 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
         }
     }
 
+    private fun showNewGameConfirmationDialog() {
+        val gameState = gameViewModel.gameState.value
+        
+        // Check if game has progress (any non-empty cells)
+        val hasProgress = gameState?.let { state ->
+            for (row in 0..8) {
+                for (col in 0..8) {
+                    val cell = state.grid[row][col]
+                    if (cell.value != 0 || cell.getNotesCount() > 0) {
+                        return@let true
+                    }
+                }
+            }
+            false
+        } ?: false
+        
+        if (hasProgress) {
+            // Show confirmation dialog if there's progress
+            MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.confirm_new_game))
+                .setMessage(getString(R.string.new_game_warning))
+                .setPositiveButton(getString(R.string.continue_anyway)) { _, _ ->
+                    gameViewModel.newGame()
+                }
+                .setNegativeButton(getString(R.string.cancel), null)
+                .show()
+        } else {
+            // Start new game directly if no progress
+            gameViewModel.newGame()
+        }
+    }
+
     private fun showGameCompletedDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle(getString(R.string.congratulations))
@@ -377,61 +430,6 @@ class MainActivity : AppCompatActivity(), SudokuGridView.OnCellClickListener {
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.difficulty_easy -> {
-                confirmDifficultyChange(Difficulty.EASY)
-                true
-            }
-            R.id.difficulty_medium -> {
-                confirmDifficultyChange(Difficulty.MEDIUM)
-                true
-            }
-            R.id.difficulty_hard -> {
-                confirmDifficultyChange(Difficulty.HARD)
-                true
-            }
-            R.id.difficulty_expert -> {
-                confirmDifficultyChange(Difficulty.EXPERT)
-                true
-            }
-            R.id.difficulty_evil -> {
-                confirmDifficultyChange(Difficulty.EVIL)
-                true
-            }
-            R.id.action_settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun confirmDifficultyChange(newDifficulty: Difficulty) {
-        // Check if game is in progress
-        val currentState = gameViewModel.gameState.value
-        val hasProgress = currentState?.let { state ->
-            state.grid.any { row -> row.any { cell -> !cell.isGiven && cell.value != 0 } }
-        } ?: false
-        
-        if (hasProgress) {
-            MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.change_difficulty))
-                .setMessage(getString(R.string.lose_progress_warning))
-                .setPositiveButton(getString(R.string.continue_anyway)) { _, _ ->
-                    gameViewModel.newGame(newDifficulty)
-                }
-                .setNegativeButton(getString(R.string.cancel), null)
-                .show()
-        } else {
-            gameViewModel.newGame(newDifficulty)
-        }
-    }
     
     override fun onResume() {
         super.onResume()
